@@ -57,4 +57,20 @@ class HomeViewModel(private val mhs: MahasiswaRepository): ViewModel() {
             }
         }
     }
+
+    fun deleteMhs(nim: String) {
+        viewModelScope.launch {
+
+            // Menggunakan blok try-catch untuk menangani kemungkinan kesalahan selama proses penghapusan.
+            try {
+
+                // Memanggil fungsi deleteMahasiswa pada repository untuk menghapus data mahasiswa berdasarkan NIM.
+                mhs.deleteMahasiswa(nim)
+            }catch (e:IOException) {
+                HomeUiState.Error
+            }catch (e:HttpException) {
+                HomeUiState.Error
+            }
+        }
+    }
 }
