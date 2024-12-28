@@ -31,3 +31,13 @@ class InsertViewModel(private val mhs: MahasiswaRepository): ViewModel() {
         }
     }
 }
+
+// Fungsi untuk mengubah data Mahasiswa menjadi data InsertUiEvent
+fun Mahasiswa.toInsertUiEvent(): InsertUiEvent = InsertUiEvent(
+    nim = nim, // Memindahkan nilai NIM dari Mahasiswa ke InsertUiEvent
+    nama = nama,
+    alamat = alamat,
+    jenisKelamin = jenisKelamin,
+    kelas = kelas,
+    angkatan = angkatan
+)
