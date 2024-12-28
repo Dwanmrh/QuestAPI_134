@@ -32,6 +32,21 @@ class InsertViewModel(private val mhs: MahasiswaRepository): ViewModel() {
     }
 }
 
+// Menyimpan state form input mahasiswa
+data class InsertUiState(
+    val insertUiEvent: InsertUiEvent = InsertUiEvent() // State default berisi objek kosong dari InsertUiEvent
+)
+
+// Menyimpan data input pengguna untuk form mahasiswa
+data class InsertUiEvent(
+    val nim: String = "",
+    val nama: String = "",
+    val alamat: String = "",
+    val jenisKelamin: String = "",
+    val kelas: String = "",
+    val angkatan: String = ""
+)
+
 // Fungsi untuk mengubah data InsertUiEvent menjadi Mahasiswa
 fun InsertUiEvent.toMhs(): Mahasiswa = Mahasiswa( // InsertUiEvent > Mahasiswa > Simpan data Mhs ke db
     nim = nim, // Memindahkan nilai NIM dari InsertUiEvent ke Mahasiswa
