@@ -34,4 +34,27 @@ class HomeViewModel(private val mhs: MahasiswaRepository): ViewModel() {
     init {
         getMhs()
     }
+
+    fun getMhs() {
+        viewModelScope.launch {
+
+            // Set state ke Loading untuk menunjukkan bahwa data sedang diproses.
+            mhsUiState = HomeUiState.Loading
+
+            // Mencoba mengambil data mahasiswa dari repository menggunakan blok try-catch.
+            mhsUiState = try {
+
+                // Jika berhasil, state diubah menjadi Success dengan daftar mahasiswa sebagai datanya.
+                HomeUiState.Success(mhs.getMahasiswa())
+            }catch (e: IOException) {
+
+                // Jika terjadi kesalahan jaringan atau I/O, set state ke Error.
+                HomeUiState.Error
+            }catch (e: HttpException) {
+
+                // Jika terjadi kesalahan HTTP (misalnya, 404 atau 500), set state ke Error.
+                HomeUiState.Error
+            }
+        }
+    }
 }
