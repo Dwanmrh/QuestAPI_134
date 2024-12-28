@@ -22,3 +22,16 @@ sealed class HomeUiState{ // Digunakan untuk membatasi subclass yang dapat di-ex
     // Subclass Loading. Menunjukkan bahwa aplikasi sedang dalam proses memuat data.
     object Loading: HomeUiState()
 }
+
+class HomeViewModel(private val mhs: MahasiswaRepository): ViewModel() {
+
+    // mhsUiState digunakan untuk menyimpan keadaan UI (state) mahasiswa.
+    // mutableStateOf digunakan untuk membuat state yang dapat berubah dan otomatis memicu pembaruan UI ketika nilainya berubah.
+    // State awalnya diset ke HomeUiState.Loading.
+    var mhsUiState: HomeUiState by mutableStateOf(HomeUiState.Loading)
+        private set // Setter-nya dibuat private agar state hanya dapat diubah oleh ViewModel.
+
+    init {
+        getMhs()
+    }
+}
