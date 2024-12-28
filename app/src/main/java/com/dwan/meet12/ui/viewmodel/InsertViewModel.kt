@@ -1,6 +1,8 @@
 package com.dwan.meet12.ui.viewmodel
 
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dwan.meet12.model.Mahasiswa
@@ -15,7 +17,7 @@ class InsertViewModel(private val mhs: MahasiswaRepository): ViewModel() {
     private set
 
     // Fungsi untuk mengubah data form ketika ada input dari pengguna
-    fun updateInsertMhsState(insertUiEvent.InsertUiEvent) {
+    fun updateInsertMhsState(insertUiEvent: InsertUiEvent) {
         uiState = InsertUiState(insertUiEvent = insertUiEvent) // Perbarui data berdasarkan event
     }
 
