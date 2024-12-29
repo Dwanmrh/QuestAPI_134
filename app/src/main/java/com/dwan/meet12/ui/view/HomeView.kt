@@ -11,6 +11,10 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -177,6 +181,9 @@ fun MhsCard(
     modifier: Modifier = Modifier,
     onDeleteClick: (Mahasiswa) -> Unit = {}
 ) {
+    // State untuk menampilkan dialog konfirmasi
+    var deleteConfirmationRequired by remember { mutableStateOf(false) }
+
     Card(
         modifier = modifier
             .padding(8.dp)
@@ -218,7 +225,7 @@ fun MhsCard(
                     color = MaterialTheme.colorScheme.secondaryContainer
                 )
                 Text(
-                    text = mahasiswa.kelas,
+                    text = mahasiswa.alamat,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.secondaryContainer
                 )
@@ -226,7 +233,7 @@ fun MhsCard(
 
             // Tombol hapus dengan animasi
             IconButton(
-                onClick = { onDeleteClick(mahasiswa) },
+                onClick = { deleteConfirmationRequired = true },
                 modifier = Modifier.size(32.dp)
             ) {
                 Icon(
@@ -237,4 +244,39 @@ fun MhsCard(
             }
         }
     }
+
+    // Dialog konfirmasi hapus
+    if (deleteConfirmationRequired) {
+        DeleteConfirmationDialog(
+            onDeleteConfirm = {
+                deleteConfirmationRequired = false
+                onDeleteClick(mahasiswa)
+            },
+            onDeleteCancel = { deleteConfirmationRequired = false }
+        )
+    }
+}
+
+@Composable
+private fun DeleteConfirmationDialog(
+    onDeleteConfirm: () -> Unit,
+    onDeleteCancel: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    AlertDialog(
+        onDismissRequest = { onDeleteCancel() },
+        title = { Text("Delete Data") },
+        text = { Text("Apakah anda yakin ingin menghapus data ini?") },
+        modifier = modifier,
+        dismissButton = {
+            TextButton(onClick = onDeleteCancel) {
+                Text(text = "Cancel")
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDeleteConfirm) {
+                Text(text = "Yes")
+            }
+        }
+    )
 }
