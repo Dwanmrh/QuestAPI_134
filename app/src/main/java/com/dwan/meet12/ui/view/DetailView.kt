@@ -53,7 +53,11 @@ fun DetailMhsScreen(
             FloatingActionButton(
                 onClick = {
                     navigateEdit(nim)  // Mengirim nim saat ini ke fungsi navigasi
-                }
+                },
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(18.dp),
+                contentColor = Color.White,
+                containerColor = MaterialTheme.colorScheme.primary
             ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
@@ -118,8 +122,8 @@ fun DetailContent(mahasiswa: Mahasiswa, modifier: Modifier = Modifier) {
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            contentColor = Color.White,
+            containerColor = MaterialTheme.colorScheme.primary
         )
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
@@ -147,7 +151,7 @@ fun ComponentDetailMhs(judul: String, isinya: String, modifier: Modifier = Modif
         Text(
             text = "$judul : ",
             fontSize = 20.sp,
-            color = Color.Gray
+            color = Color.LightGray
         )
         Text(
             text = isinya,
