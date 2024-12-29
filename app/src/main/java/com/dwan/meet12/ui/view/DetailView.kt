@@ -21,7 +21,7 @@ import com.dwan.meet12.ui.viewmodel.PenyediaViewModel
 
 object DestinasiDetail : DestinasiNavigasi {
     override val route = "detail/{nim}"
-    override val titleRes = "Detail Mhs"
+    override val titleRes = "Detail Mahasiswa"
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
