@@ -32,7 +32,7 @@ import com.dwan.meet12.ui.viewmodel.PenyediaViewModel
 // Objek untuk mendefinisikan rute dan judul layar home
 object DestinasiHome : DestinasiNavigasi {
     override val route = "home" // Rute navigasi layar home
-    override val titleRes = "Home Mhs"
+    override val titleRes = "Home Mahasiswa"
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
