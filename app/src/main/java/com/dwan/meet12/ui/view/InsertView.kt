@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -42,7 +43,7 @@ object DestinasiEntry : DestinasiNavigasi {
     override val route = "item_entry"
 
     // Mendefinisikan properti `titleRes` yang mengacu pada string "Entry Mhs"
-    override val titleRes = "Insert Mhs"
+    override val titleRes = "Insert Mahasiswa"
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -208,7 +209,8 @@ fun FormInput(
         if (enabled) {
             Text(
                 text = "Isi Semua Data!",
-                modifier = Modifier.padding(12.dp)
+                modifier = Modifier.padding(12.dp),
+                color = Color.Red
             )
         }
         // Garis pemisah tebal
