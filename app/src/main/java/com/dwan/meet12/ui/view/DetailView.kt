@@ -128,15 +128,15 @@ fun DetailContent(mahasiswa: Mahasiswa, modifier: Modifier = Modifier) {
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             ComponentDetailMhs(judul = "NIM", isinya = mahasiswa.nim)
-            Spacer(modifier = Modifier.padding(4.dp))
+            Spacer(modifier = Modifier.padding(8.dp))
             ComponentDetailMhs(judul = "Nama", isinya = mahasiswa.nama)
-            Spacer(modifier = Modifier.padding(4.dp))
+            Spacer(modifier = Modifier.padding(8.dp))
             ComponentDetailMhs(judul = "Alamat", isinya = mahasiswa.alamat)
-            Spacer(modifier = Modifier.padding(4.dp))
+            Spacer(modifier = Modifier.padding(8.dp))
             ComponentDetailMhs(judul = "Jenis Kelamin", isinya = mahasiswa.jenisKelamin)
-            Spacer(modifier = Modifier.padding(4.dp))
+            Spacer(modifier = Modifier.padding(8.dp))
             ComponentDetailMhs(judul = "Kelas", isinya = mahasiswa.kelas)
-            Spacer(modifier = Modifier.padding(4.dp))
+            Spacer(modifier = Modifier.padding(8.dp))
             ComponentDetailMhs(judul = "Angkatan", isinya = mahasiswa.angkatan)
         }
     }
@@ -144,18 +144,30 @@ fun DetailContent(mahasiswa: Mahasiswa, modifier: Modifier = Modifier) {
 
 @Composable
 fun ComponentDetailMhs(judul: String, isinya: String, modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.Start
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(4.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "$judul : ",
+            text = judul,
+            Modifier.weight(0.8f),
+            fontSize = 20.sp,
+            color = Color.LightGray
+        )
+        Text(
+            text = ":",
+            Modifier.weight(0.2f),
             fontSize = 20.sp,
             color = Color.LightGray
         )
         Text(
             text = isinya,
-            fontSize = 20.sp
+            Modifier.weight(2f),
+            fontSize = 20.sp,
+            color = Color.White
         )
     }
 }
