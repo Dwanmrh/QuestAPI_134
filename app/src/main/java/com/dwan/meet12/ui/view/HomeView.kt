@@ -115,12 +115,19 @@ fun HomeStatus(
 }
 
 @Composable
-fun OnLoading(modifier: Modifier = Modifier) {
-    Image(
-        modifier = modifier.size(200.dp),
-        painter = painterResource(id = R.drawable.loading_img),
-        contentDescription = stringResource(R.string.loading)
-    )
+fun OnLoading(
+    modifier: Modifier
+) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Image(
+            modifier = Modifier.size(70.dp), // Ukuran eksplisit di sini
+            painter = painterResource(id = R.drawable.loading_img),
+            contentDescription = stringResource(R.string.loading)
+        )
+    }
 }
 
 @Composable
