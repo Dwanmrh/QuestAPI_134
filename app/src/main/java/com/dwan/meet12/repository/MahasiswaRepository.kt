@@ -20,7 +20,7 @@ class NetworkMahasiswaRepository(
     }
 
     override suspend fun updateMahasiswa(nim: String, mahasiswa: Mahasiswa) {
-        mahasiswaApiService.updateMahasiwa(nim, mahasiswa)
+        mahasiswaApiService.updateMahasiswa(nim, mahasiswa)
     }
 
     override suspend fun deleteMahasiswa(nim: String) {
