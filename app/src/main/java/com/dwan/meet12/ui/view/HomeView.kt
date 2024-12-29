@@ -36,7 +36,7 @@ object DestinasiHome : DestinasiNavigasi {
 fun HomeScreen(
     navigateToItemEntry: () -> Unit, // Navigasi ke layar tambah data
     modifier: Modifier = Modifier,
-    onDetailClick: (String) -> Unit = {},
+    onDetailClick: (String) -> Unit = {}, // Navigasi ke halaman detail
     viewModel: HomeViewModel = viewModel(factory = PenyediaViewModel.Factory) // ViewModel untuk mengelola data
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -58,17 +58,18 @@ fun HomeScreen(
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(18.dp)
             ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Kontak")
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Mahasiswa")
             }
         },
     ) { innerPadding ->
-
         // Menampilkan status data mahasiswa
         HomeStatus(
             homeUiState = viewModel.mhsUiState,
-            retryAction = { viewModel.getMhs() }, modifier = Modifier.padding(innerPadding),
-            onDetailClick = onDetailClick, onDeleteClick = {
-                viewModel.deleteMhs(it.nim) // Menghapus data mahasiswa
+            retryAction = { viewModel.getMhs() },
+            modifier = Modifier.padding(innerPadding),
+            onDetailClick = onDetailClick,
+            onDeleteClick = { mahasiswa ->
+                viewModel.deleteMhs(mahasiswa.nim) // Menghapus data mahasiswa
                 viewModel.getMhs() // Memuat ulang data setelah dihapus
             }
         )
@@ -87,22 +88,17 @@ fun HomeStatus(
         is HomeUiState.Loading -> OnLoading(modifier = modifier.fillMaxSize()) // Menampilkan loading
         is HomeUiState.Success -> {
             if (homeUiState.mahasiswa.isEmpty()) {
-
                 // Tampilkan pesan jika data kosong
-                return Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text(text = "Tidak ada data Kontak")
+                Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text(text = "Tidak ada data Mahasiswa")
                 }
             } else {
-
                 // Tampilkan daftar mahasiswa
                 MhsLayout(
-                    mahasiswa = homeUiState.mahasiswa, modifier = modifier.fillMaxWidth(),
-                    onDetailClick = {
-                        onDetailClick(it.nim)
-                    },
-                    onDeleteClick = {
-                        onDeleteClick(it)
-                    }
+                    mahasiswa = homeUiState.mahasiswa,
+                    modifier = modifier.fillMaxWidth(),
+                    onDetailClick = { onDetailClick(it.nim) }, // Mengarahkan ke detail
+                    onDeleteClick = { onDeleteClick(it) }
                 )
             }
         }
@@ -153,10 +149,8 @@ fun MhsLayout(
                 mahasiswa = mahasiswa,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { onDetailClick(mahasiswa) },
-                onDeleteClick = {
-                    onDeleteClick(mahasiswa)
-                }
+                    .clickable { onDetailClick(mahasiswa) }, // Fungsi klik untuk detail
+                onDeleteClick = { onDeleteClick(mahasiswa) }
             )
         }
     }
@@ -170,7 +164,7 @@ fun MhsCard(
 ) {
     // Kartu untuk menampilkan informasi mahasiswa
     Card(
-        modifier = modifier,
+        modifier = modifier.padding(8.dp),
         shape = MaterialTheme.shapes.medium,
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
