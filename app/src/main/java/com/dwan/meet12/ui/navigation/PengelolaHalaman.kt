@@ -56,11 +56,7 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
             UpdateMhsScreen(
                 nim = nim,
                 navigateBack = {
-                    navController.navigate(DestinasiHome.route) {
-                        popUpTo(DestinasiHome.route) {
-                            inclusive = true
-                        }
-                    }
+                    navController.popBackStack() // Kembali ke halaman sebelumnya
                 }
             )
         }
