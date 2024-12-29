@@ -35,7 +35,7 @@ fun CustomTopAppBar(
             Text(
                 title,
                 color = Color.Black,
-                modifier = Modifier.offset(y = (-25).dp) )},
+                modifier = Modifier.offset(y = (-20).dp) )},
         actions = {
 
             // Menambahkan ikon refresh di toolbar.
@@ -43,7 +43,7 @@ fun CustomTopAppBar(
                 onRefresh() // Memanggil fungsi refresh saat ikon ditekan.
             })
         },
-        modifier = modifier.height(70.dp),
+        modifier = modifier.height(75.dp),
         scrollBehavior = scrollBehavior, navigationIcon = { // Mengatur animasi scroll jika tersedia.
             if (canNavigateBack) {
                 IconButton(onClick = navigateUp) {
