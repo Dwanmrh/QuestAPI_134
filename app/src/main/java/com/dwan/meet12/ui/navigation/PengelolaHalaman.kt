@@ -3,13 +3,19 @@ package com.dwan.meet12.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.dwan.meet12.ui.view.DestinasiDetail
 import com.dwan.meet12.ui.view.DestinasiEntry
 import com.dwan.meet12.ui.view.DestinasiHome
+import com.dwan.meet12.ui.view.DestinasiUpdate
+import com.dwan.meet12.ui.view.DetailMhsScreen
 import com.dwan.meet12.ui.view.EntryMhsScreen
 import com.dwan.meet12.ui.view.HomeScreen
+import com.dwan.meet12.ui.view.UpdateMhsScreen
 
 @Composable
 fun PengelolaHalaman(navController: NavHostController = rememberNavController()) {
@@ -24,10 +30,12 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
         composable(DestinasiHome.route) {
             HomeScreen(
                 navigateToItemEntry = { navController.navigate(DestinasiEntry.route) }, // Navigasi ke EntryMhsScreen
-                onDetailClick = {
+                onDetailClick = { nim ->
+                    navController.navigate("detail/$nim") // Navigasi ke halaman detail dengan NIM
                 }
             )
         }
+
         // Halaman EntryMhs
         composable(DestinasiEntry.route) {
             EntryMhsScreen(navigateBack = {
@@ -37,6 +45,41 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
                     }
                 }
             })
+        }
+
+        // Halaman UpdateMhs
+        composable(
+            route = "update/{nim}",
+            arguments = listOf(navArgument("nim") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val nim = backStackEntry.arguments?.getString("nim") ?: ""
+            UpdateMhsScreen(
+                nim = nim,
+                navigateBack = {
+                    navController.navigate(DestinasiHome.route) {
+                        popUpTo(DestinasiHome.route) {
+                            inclusive = true
+                        }
+                    }
+                }
+            )
+        }
+
+        // Halaman DetailMhs
+        composable(
+            route = "detail/{nim}",
+            arguments = listOf(navArgument("nim") { type = NavType.StringType }) // Definisikan parameter "nim"
+        ) { backStackEntry ->
+            val nim = backStackEntry.arguments?.getString("nim") ?: "" // Ambil nilai NIM dari parameter
+            DetailMhsScreen(
+                nim = nim,
+                navigateEdit = { editNim ->
+                    navController.navigate("update/$editNim") // Navigasi ke halaman update dengan NIM
+                },
+                navigateBack = {
+                    navController.popBackStack() // Kembali ke halaman sebelumnya
+                }
+            )
         }
     }
 }
