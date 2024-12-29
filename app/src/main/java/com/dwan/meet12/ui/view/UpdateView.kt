@@ -38,7 +38,7 @@ import kotlinx.coroutines.launch
 
 object DestinasiUpdate : DestinasiNavigasi {
     override val route = "update_view"
-    override val titleRes = "Update Mhs"
+    override val titleRes = "Update Mahasiswa"
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
