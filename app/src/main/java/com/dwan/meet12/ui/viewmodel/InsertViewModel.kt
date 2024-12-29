@@ -13,12 +13,12 @@ import kotlinx.coroutines.launch
 class InsertViewModel(private val mhs: MahasiswaRepository): ViewModel() {
 
     // Data untuk menyimpan keadaan form (seperti input dari pengguna)
-    var uiState by mutableStateOf(InsertUiState())
+    var insertUiState by mutableStateOf(InsertUiState())
     private set
 
     // Fungsi untuk mengubah data form ketika ada input dari pengguna
     fun updateInsertMhsState(insertUiEvent: InsertUiEvent) {
-        uiState = InsertUiState(insertUiEvent = insertUiEvent) // Perbarui data berdasarkan event
+        insertUiState = InsertUiState(insertUiEvent = insertUiEvent) // Perbarui data berdasarkan event
     }
 
     // Fungsi untuk menambahkan data mahasiswa ke database
@@ -26,7 +26,7 @@ class InsertViewModel(private val mhs: MahasiswaRepository): ViewModel() {
         viewModelScope.launch { // Menjalankan proses di latar belakang (tidak mengganggu UI)
             try {
                 // Mengambil data dari form dan mengirimnya ke repository
-                mhs.insertMahasiswa(uiState.insertUiEvent.toMhs())
+                mhs.insertMahasiswa(insertUiState.insertUiEvent.toMhs())
             }catch (e:Exception) {
                 e.printStackTrace() // Menangani error jika terjadi masalah
             }
@@ -60,7 +60,7 @@ fun InsertUiEvent.toMhs(): Mahasiswa = Mahasiswa( // InsertUiEvent > Mahasiswa >
 )
 
 // Fungsi untuk mengubah data Mahasiswa menjadi InsertUiState
-fun Mahasiswa.toUiStateMhs(): InsertUiState = InsertUiState( // Mahasiswa > insertUiEvent > Masuk ke InsertUiState
+fun Mahasiswa.toInsertUiStateMhs(): InsertUiState = InsertUiState( // Mahasiswa > insertUiEvent > Masuk ke InsertUiState
     insertUiEvent = toInsertUiEvent() // Memanggil fungsi toInsertUiEvent untuk mengonversi data Mahasiswa
 )
 
