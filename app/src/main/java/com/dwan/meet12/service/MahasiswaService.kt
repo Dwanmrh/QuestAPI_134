@@ -24,8 +24,8 @@ interface MahasiswaService {
     @POST("insertmahasiswa.php")
     suspend fun insertMahasiswa(@Body mahasiswa: Mahasiswa)
 
-    @PUT("editmahasiswa/php/{nim}")
-    suspend fun updateMahasiwa(@Query("nim")nim: String, @Body mahasiswa: Mahasiswa)
+    @PUT("editmahasiswa.php/{nim}")
+    suspend fun updateMahasiswa(@Query("nim")nim: String, @Body mahasiswa: Mahasiswa)
 
     @DELETE("deletemahasiswa.php/{nim}")
     suspend fun deleteMahasiswa(@Query("nim")nim: String):Response<Void>
